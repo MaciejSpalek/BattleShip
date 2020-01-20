@@ -1,0 +1,320 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat";
+}
+
+:root {
+  --game-field-size: calc(14em + 15vw);
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh;
+  background-color: #001d6d;
+}
+
+#wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  background-image: url("battleShip.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+#game-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 100%;
+}
+
+#end-layer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.text {
+  font-size: 6rem;
+  color: black;
+  text-shadow: 0 0 2px aquamarine, 0 0 5px aquamarine, 0 0 15px aquamarine;
+  white-space: nowrap;
+}
+
+.game-field {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[12];
+      grid-template-rows: repeat(12, 1fr);
+  -ms-grid-columns: (1fr)[12];
+      grid-template-columns: repeat(12, 1fr);
+  width: var(--game-field-size);
+  height: var(--game-field-size);
+  border: .1rem solid black;
+  background-color: rgba(127, 255, 212, 0.767);
+  margin: 4em 0;
+}
+
+#computer-field, #player-field {
+  position: relative;
+}
+
+#computer-field::before, #player-field::before {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: 104%;
+  left: 0%;
+  font-size: calc(.8em + 2vw);
+  font-weight: bold;
+  text-shadow: 0.1rem 0.1rem 0.12rem black;
+  width: 100%;
+  color: #c20000;
+}
+
+#computer-field::before {
+  content: 'Computer';
+}
+
+#player-field::before {
+  content: 'Player';
+}
+
+#computer-field[data-computerAfter]::after, #player-field[data-playerAfter]::after {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 108%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+  height: 15%;
+  font-size: calc(.8em + 2vw);
+  font-weight: bold;
+  text-shadow: 0.1rem 0.1rem 0.12rem black;
+  color: #c20000;
+}
+
+#computer-field[data-computerAfter]::after {
+  content: attr(data-computerAfter) " / 35";
+}
+
+#player-field[data-playerAfter]::after {
+  content: attr(data-playerAfter) " / 35";
+}
+
+.square {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: .05em solid black;
+  font-size: 12px;
+  font-weight: bold;
+  -webkit-box-shadow: inset 0 0 0.18rem 0.15rem rgba(0, 148, 136, 0.884);
+          box-shadow: inset 0 0 0.18rem 0.15rem rgba(0, 148, 136, 0.884);
+  cursor: pointer;
+}
+
+#computer-field .square:hover {
+  -webkit-box-shadow: inset 0 0 3px 3px #0e5854;
+          box-shadow: inset 0 0 3px 3px #0e5854;
+}
+
+.shipSquare {
+  background-color: #16398b;
+  -webkit-box-shadow: inset 0 0 0.18rem 0.15rem #00043f;
+          box-shadow: inset 0 0 0.18rem 0.15rem #00043f;
+}
+
+.button-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  padding: 1em 0;
+}
+
+.button {
+  width: 10rem;
+  height: 3rem;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  background-color: #16398b;
+  -webkit-box-shadow: inset 0 0 5px 5px #00043f;
+          box-shadow: inset 0 0 5px 5px #00043f;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: .5rem;
+  -webkit-transition: 1s;
+  transition: 1s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #00123d;
+  -webkit-box-shadow: inset 0 0 5px 5px #00021b;
+          box-shadow: inset 0 0 5px 5px #00021b;
+}
+
+.red {
+  background-color: #b70000;
+  -webkit-box-shadow: inset 0 0 0.18rem 0.15rem #00043f;
+          box-shadow: inset 0 0 0.18rem 0.15rem #00043f;
+}
+
+#computer-field .red:hover {
+  background-color: #dd0000;
+}
+
+.miss {
+  position: relative;
+  background-color: #068ce6;
+  -webkit-box-shadow: inset 0 0 0.08rem 0.08rem #002153;
+          box-shadow: inset 0 0 0.08rem 0.08rem #002153;
+}
+
+#computer-field .miss:hover {
+  background-color: #0673bb;
+  -webkit-box-shadow: inset 0 0 0.08rem 0.08rem #00183b;
+          box-shadow: inset 0 0 0.08rem 0.08rem #00183b;
+}
+
+.miss::before {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  content: "\224B";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: #07e1e9;
+}
+
+@media (min-width: 800px) {
+  #game-area {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .button-box {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .miss::before {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --game-field-size: calc(26em);
+  }
+  #wrapper {
+    min-height: 100vh;
+    width: 1200px;
+  }
+  #computer-field[data-computerAfter]::after,
+  #player-field[data-playerAfter]::after,
+  #computer-field::before,
+  #player-field::before {
+    font-size: 2.2em;
+  }
+}
+/*# sourceMappingURL=style.css.map */
