@@ -45,7 +45,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 100%;
-  background-image: url("battleShip.jpg");
+  background-image: url("img/battleShip.jpg");
   background-position: center;
   background-size: cover;
 }
